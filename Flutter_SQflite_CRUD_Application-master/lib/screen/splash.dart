@@ -1,9 +1,12 @@
+// ignore_for_file: camel_case_types
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:sqflite_10/screen/homescreen.dart';
 
 class splashScreen extends StatefulWidget {
+  
   const splashScreen({super.key});
 
   @override

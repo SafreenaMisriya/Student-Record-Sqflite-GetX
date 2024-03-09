@@ -74,6 +74,7 @@ class _AddStudentState extends State<AddStudent> {
 
                 // Name input field with validation
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.name,
                   controller: _nameController,
                   decoration: InputDecoration(
@@ -95,6 +96,7 @@ class _AddStudentState extends State<AddStudent> {
 
                 // Class input field with validation
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.text,
                   controller: _classController,
                   decoration: InputDecoration(
@@ -116,7 +118,9 @@ class _AddStudentState extends State<AddStudent> {
 
                 // Guardian input field with validation
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.name,
+              
                   controller: _guardianController,
                   decoration: InputDecoration(
                     labelText: "Guardian",
@@ -137,7 +141,9 @@ class _AddStudentState extends State<AddStudent> {
 
                 // Mobile input field with validation
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.number,
+                  maxLength: 10,
                   controller: _mobileController,
                   decoration: InputDecoration(
                     labelText: "Mobile",
