@@ -1,65 +1,27 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sqflite_10/controller/getxcontroller/studentdata_controller.dart';
 import 'package:sqflite_10/database/db_functions.dart';
 import 'package:sqflite_10/database/db_model.dart';
 import 'package:sqflite_10/screen/editstudent.dart';
 import 'package:sqflite_10/screen/studentdetails.dart';
-
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
-
-  @override
-  State<SearchScreen> createState() => _SearchScreenState();
-}
-
-class _SearchScreenState extends State<SearchScreen> {
-  List<StudentModel> finduser = [];
-
-  @override
-  void initState() {
-    super.initState();
-    finduser = studentList.value;
-    // Initialize with the current student list
-  }
-
-  void _runFilter(String enteredKeyword) {
-    List<StudentModel> result = [];
-    if (enteredKeyword.isEmpty) {
-      result = studentList.value;
-      // Reset to the original list if the search is empty
-    } else {
-      // Filter based on student properties
-      result = studentList.value
-          .where((student) =>
-              student.name
-                  .toLowerCase()
-                  .contains(enteredKeyword.toLowerCase()) ||
-              student.classname
-                  .toLowerCase()
-                  .contains(enteredKeyword.toLowerCase()))
-          .toList();
-    }
-    setState(() {
-      finduser = result;
-    });
-  }
+class SeachScreen extends StatelessWidget {
+  const SeachScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+   studentController.getsearchdata("");
+     return Scaffold(
       body: SafeArea(
-        child: ValueListenableBuilder<List<StudentModel>>(
-          valueListenable: studentList,
-          builder: (context, studentListValue, child) {
-            return Padding(
+        child:  Padding(
               padding: const EdgeInsets.all(12),
               child: Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     child: TextField( 
-                      onChanged: (value) => _runFilter(value),
+                      onChanged: (value) =>studentController.getsearchdata(value),
                       decoration: const InputDecoration(
                         labelText: 'Search',
                         suffixIcon: Icon(Icons.search,color: Colors.blue,),
@@ -67,10 +29,17 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                   ),
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: finduser.length,
+                    child: Obx(
+                      () {
+                      if(studentController.filterstudent.isEmpty){
+                        return const Center(
+                          child: Text('NO Result Found'),
+                        );
+                      }else{
+                    return  ListView.builder(
+                      itemCount: studentController.filterstudent.length,
                       itemBuilder: (context, index) {
-                        final finduserItem = finduser[index];
+                        final finduserItem = studentController.filterstudent[index];
                         return Card(
                           color:const Color.fromARGB(255, 160, 207, 246),
                           margin: const EdgeInsets.symmetric(vertical: 10),
@@ -87,9 +56,7 @@ class _SearchScreenState extends State<SearchScreen> {
                            IconButton(
                             icon: const Icon(Icons.edit,color: Colors.green,),
                             onPressed: () {
-                             Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => EditStudent(student: finduserItem),
-                        ));
+                            Get.to(()=>EditScreen(student: finduserItem));
                       },
                     ),
                     IconButton(
@@ -101,22 +68,22 @@ class _SearchScreenState extends State<SearchScreen> {
                   ],
                 ),
                             onTap: () {
-                              Navigator.of(context)
-                                  .pushReplacement(MaterialPageRoute(
-                                builder: (ctr) =>
-                                    StudentDetails(stdetails: finduserItem),
-                              ));
+                            Get.to(()=>StudentDetails(stdetails: finduserItem));
                             },
                           ),
                         );
                       },
-                    ),
+                    );
+                      }
+                      }
+                    )
+                    
                   ),
                 ],
               ),
-            );
-          },
-        ),
+            )
+          
+      
       ),
     );
   }
@@ -145,8 +112,7 @@ class _SearchScreenState extends State<SearchScreen> {
       },
     );
   }
-
-  void detectedYes(ctx, StudentModel student) {
+    void detectedYes(ctx, StudentModel student) {
     deleteStudent(student.id!);
     ScaffoldMessenger.of(ctx).showSnackBar(
       const SnackBar(

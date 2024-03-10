@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sqflite_10/database/db_functions.dart';
 import 'package:sqflite_10/screen/addstudent.dart';
 import 'package:sqflite_10/screen/listscreeen.dart';
 import 'package:sqflite_10/screen/searchscreen.dart';
 
-class HomeScreeen extends StatefulWidget {
+class HomeScreeen extends StatelessWidget {
   const HomeScreeen({super.key});
 
   @override
-  State<HomeScreeen> createState() => _HomeScreeenState();
-}
-
-class _HomeScreeenState extends State<HomeScreeen> {
- 
-  @override
   Widget build(BuildContext context) {
-    getstudentdata();
+      getstudentdata();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.pink,
@@ -25,8 +20,7 @@ class _HomeScreeenState extends State<HomeScreeen> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (ctxs) => const SearchScreen()));
+                Get.to(()=>const SeachScreen());
               },
               icon: const Icon(Icons.search_rounded,color: Colors.black,))
         ],
@@ -51,9 +45,8 @@ class _HomeScreeenState extends State<HomeScreeen> {
       
     );
   }
-
   void addstudent(ctx) {
     Navigator.of(ctx)
-        .push(MaterialPageRoute(builder: (ctx) => const AddStudent()));
+        .push(MaterialPageRoute(builder: (ctx) => const AddStudentdata()));
   }
 }
