@@ -3,7 +3,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:sqflite_10/controller/getxcontroller/edit_controller.dart';
 import 'package:sqflite_10/database/db_model.dart';
 
@@ -41,7 +40,7 @@ class EditScreen extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.all(20),
             child: Form(
-              key: editcontroller.formKey, // Assign the form key
+              key: editcontroller.formKey, 
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -60,12 +59,9 @@ class EditScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 50),
-
-                  // Name input field with validation
                   Row(
                     children: [
-                      
-                     const SizedBox( width: 10), // Add spacing between icon and text field
+                     const SizedBox( width: 10),
                       Expanded(
                         child: TextFormField(
                           keyboardType: TextInputType.name,
@@ -87,12 +83,9 @@ class EditScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 20),
-
-                  // Class input field with validation
                   Row(
-                    children: [
-                      
-                     const SizedBox( width: 10), // Add spacing between icon and text field
+                    children: [  
+                     const SizedBox( width: 10), 
                       Expanded(
                         child: TextFormField(
                           keyboardType: TextInputType.text,
@@ -114,12 +107,9 @@ class EditScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 20),
-
-                  // Guardian input field with validation
                   Row(
-                    children: [
-                      
-                    const  SizedBox( width: 10), // Add spacing between icon and text field
+                    children: [    
+                    const  SizedBox( width: 10), 
                       Expanded(
                         child: TextFormField(
                           keyboardType: TextInputType.name,
@@ -141,12 +131,9 @@ class EditScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 20),
-
-                  // Mobile input field with validation
                   Row(
                     children: [
-                    
-                     const SizedBox( width: 10), // Add spacing between icon and text field
+                     const SizedBox( width: 10),
                       Expanded(
                         child: TextFormField(
                           keyboardType: TextInputType.number,

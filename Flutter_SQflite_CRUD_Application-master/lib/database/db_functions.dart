@@ -1,6 +1,6 @@
-// ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
 
-import 'package:flutter/material.dart';
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_10/controller/getxcontroller/studentdata_controller.dart';
@@ -16,17 +16,15 @@ Future<void> initializeDatabase() async {
           'CREATE TABLE student (id INTEGER PRIMARY KEY, name TEXT, classname TEXT, father TEXT, pnumber TEXT, imagex TEXT)');
     },
   );
-  print("Database created successfully.");
 }
 
 Future<List<StudentModel>> getstudentdata() async {
   final result = await _db.rawQuery("SELECT * FROM student");
-  print('All Students data : ${result}');
   List<StudentModel>l1=[];
-  result.forEach((map) {
+  for (var map in result) {
     final student = StudentModel.fromMap(map);
     l1.add(student);
-  });
+  }
   return l1;
 }
 
@@ -39,7 +37,7 @@ Future<void> addstudent(StudentModel value) async {
     getstudentdata();
      await Get.find<StudentController>().intialize();
   } catch (e) {
-    print('Error inserting data: $e');
+   stdout.write('Error inserting data: $e');
   }
 }
 
